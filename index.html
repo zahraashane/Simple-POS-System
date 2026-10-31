@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Simple Point of Sale System - Kelola transaksi dengan mudah dan cepat." />
+  <title>POS System — Kafé Nusantara</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__brand">
+        <span class="header__logo" aria-hidden="true">☕</span>
+        <div>
+          <h1 class="header__title">Kafé Nusantara</h1>
+          <p class="header__subtitle">Point of Sale System</p>
+        </div>
+      </div>
+      <div class="header__meta">
+        <span id="currentDate" class="header__date"></span>
+        <span id="currentTime" class="header__time"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN LAYOUT ===== -->
+  <main class="layout">
+
+    <!-- ===== LEFT PANEL: Product Catalog ===== -->
+    <section class="panel panel--catalog" aria-label="Katalog Produk">
+
+      <!-- Search & Filter Bar -->
+      <div class="catalog__toolbar">
+        <div class="search-box">
+          <span class="search-box__icon" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="searchInput"
+            class="search-box__input"
+            placeholder="Cari produk…"
+            aria-label="Cari produk"
+            autocomplete="off"
+          />
+          <button id="clearSearch" class="search-box__clear" aria-label="Hapus pencarian" hidden>✕</button>
+        </div>
+        <div class="filter-tabs" id="filterTabs" role="tablist" aria-label="Filter kategori">
+          <!-- Category tabs injected by JS -->
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="productGrid" role="list" aria-label="Daftar produk">
+        <!-- Product cards injected by JS -->
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" hidden>
+        <span class="empty-state__icon" aria-hidden="true">🔎</span>
+        <p>Produk tidak ditemukan.<br />Coba kata kunci lain.</p>
+      </div>
+
+    </section>
+
+    <!-- ===== RIGHT PANEL: Transaction / Cart ===== -->
+    <section class="panel panel--cart" aria-label="Transaksi">
+
+      <div class="cart__header">
+        <h2 class="cart__title">
+          <span aria-hidden="true">🛒</span> Transaksi
+        </h2>
+        <span class="cart__badge" id="cartBadge" aria-label="Jumlah item di keranjang">0 item</span>
+      </div>
+
+      <!-- Cart Table -->
+      <div class="cart__table-wrap">
+        <table class="cart-table" aria-label="Daftar belanja">
+          <thead>
+            <tr>
+              <th scope="col">Produk</th>
+              <th scope="col" class="text-center">Qty</th>
+              <th scope="col" class="text-right">Subtotal</th>
+              <th scope="col" class="text-center">Hapus</th>
+            </tr>
+          </thead>
+          <tbody id="cartBody">
+            <!-- Cart rows injected by JS -->
+          </tbody>
+        </table>
+        <!-- Cart empty placeholder -->
+        <div class="cart__empty" id="cartEmpty">
+          <span aria-hidden="true">🛍️</span>
+          <p>Keranjang masih kosong.<br />Tambahkan produk untuk memulai.</p>
+        </div>
+      </div>
+
+      <!-- Summary & Payment -->
+      <div class="cart__footer">
+
+        <!-- Total -->
+        <div class="summary">
+          <div class="summary__row">
+            <span>Subtotal</span>
+            <span id="subtotalDisplay">Rp 0</span>
+          </div>
+          <div class="summary__row summary__row--tax">
+            <span>Pajak (10%)</span>
+            <span id="taxDisplay">Rp 0</span>
+          </div>
+          <div class="summary__row summary__row--total">
+            <span>Total Belanja</span>
+            <strong id="totalDisplay">Rp 0</strong>
+          </div>
+        </div>
+
+        <!-- Payment Input -->
+        <div class="payment">
+          <label for="paymentInput" class="payment__label">Uang Pembayaran</label>
+          <div class="payment__input-wrap">
+            <span class="payment__prefix">Rp</span>
+            <input
+              type="number"
+              id="paymentInput"
+              class="payment__input"
+              placeholder="0"
+              min="0"
+              aria-label="Masukkan uang pembayaran"
+            />
+          </div>
+          <!-- Quick amount buttons -->
+          <div class="quick-amounts" id="quickAmounts" aria-label="Nominal cepat">
+            <!-- Injected by JS based on total -->
+          </div>
+          <!-- Change display -->
+          <div class="change-display" id="changeDisplay" hidden>
+            <span class="change-display__label">Uang Kembalian</span>
+            <strong class="change-display__value" id="changeValue">Rp 0</strong>
+          </div>
+          <!-- Validation message -->
+          <p class="payment__error" id="paymentError" role="alert" hidden></p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="cart__actions">
+          <button class="btn btn--ghost" id="clearCartBtn" aria-label="Kosongkan keranjang">
+            🗑️ Kosongkan
+          </button>
+          <button class="btn btn--primary" id="checkoutBtn" aria-label="Proses pembayaran">
+            ✅ Bayar Sekarang
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== SUCCESS MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal">
+      <div class="modal__icon" aria-hidden="true">🎉</div>
+      <h2 class="modal__title" id="modalTitle">Pembayaran Berhasil!</h2>
+      <p class="modal__body" id="modalBody"></p>
+      <button class="btn btn--primary btn--full" id="newTransactionBtn">
+        ➕ Transaksi Baru
+      </button>
+    </div>
+  </div>
+
+  <!-- Product images: Base64 embedded, no internet required -->
+  <script src="images.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

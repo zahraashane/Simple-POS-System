@@ -1,0 +1,14 @@
+[
+  { "id": 1,  "name": "Espresso",         "category": "Coffee",   "price": 25000 },
+  { "id": 2,  "name": "Cappuccino",       "category": "Coffee",   "price": 35000 },
+  { "id": 3,  "name": "Latte",            "category": "Coffee",   "price": 38000 },
+  { "id": 4,  "name": "Americano",        "category": "Coffee",   "price": 28000 },
+  { "id": 5,  "name": "Green Tea Latte",  "category": "Tea",      "price": 32000 },
+  { "id": 6,  "name": "Chamomile Tea",    "category": "Tea",      "price": 22000 },
+  { "id": 7,  "name": "Croissant",        "category": "Pastry",   "price": 28000 },
+  { "id": 8,  "name": "Blueberry Muffin", "category": "Pastry",   "price": 24000 },
+  { "id": 9,  "name": "Chocolate Cake",   "category": "Pastry",   "price": 42000 },
+  { "id": 10, "name": "Mineral Water",    "category": "Beverage", "price": 12000 },
+  { "id": 11, "name": "Orange Juice",     "category": "Beverage", "price": 30000 },
+  { "id": 12, "name": "Avocado Smoothie", "category": "Beverage", "price": 36000 }
+]
